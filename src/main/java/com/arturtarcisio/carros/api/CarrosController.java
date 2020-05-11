@@ -3,6 +3,7 @@ package com.arturtarcisio.carros.api;
 import com.arturtarcisio.carros.domain.Carro;
 import com.arturtarcisio.carros.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,4 +37,15 @@ public class CarrosController {
 
         return "Carro salvo com sucesso: " + carro.getId();
     }
+
+    @PutMapping("/{id}")
+    public String atualizarCarro(@PathVariable("id") Long id, @RequestBody Carro carro){
+        service.update(carro, id);
+
+        return "Carro atualizado com sucesso: " + carro.getId();
+    }
+
+
+
+    
 }

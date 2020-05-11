@@ -5,8 +5,6 @@ import com.arturtarcisio.carros.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,4 +36,15 @@ public class CarroService {
     public Carro save(Carro carro){
         return repositorio.save(carro);
     }
+
+    public void update(Carro carro, Long id) {
+        getCarroById(id).map(carroDb -> {
+            carroDb.setNome(carro.getNome());
+            carroDb.setTipo(carro.getTipo());
+            System.out.println("Carro id: " + carroDb.getId());
+            repositorio.save(carroDb);
+            return carroDb;
+        }).orElseThrow(() -> new RuntimeException("Não foi possível atualizar o registro"));
+    }
+
 }
