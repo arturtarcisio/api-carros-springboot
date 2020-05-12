@@ -5,6 +5,7 @@ import com.arturtarcisio.carros.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,7 +14,7 @@ public class CarroService {
     @Autowired
     private CarroRepository repositorio;
 
-    public Iterable getCarros(){
+    public List<Carro> getCarros(){
         return repositorio.findAll();
     }
 
@@ -29,7 +30,7 @@ public class CarroService {
         return repositorio.findById(id);
     }
 
-    public Iterable<Carro> getCarroByTipo(String tipo){
+    public List<Carro> getCarroByTipo(String tipo){
         return repositorio.findCarroByTipo(tipo);
     }
 

@@ -38,8 +38,12 @@ public class CarrosController {
     }
 
     @GetMapping("/tipo/{tipo}")
-    public Iterable<Carro> getByTipo(@PathVariable("tipo") String tipo){
-        return service.getCarroByTipo(tipo);
+    public ResponseEntity<List<Carro>> getByTipo(@PathVariable("tipo") String tipo){
+        List<Carro> carros = service.getCarroByTipo(tipo);
+
+        return carros.isEmpty() ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.ok(carros);
     }
 
     @PostMapping
