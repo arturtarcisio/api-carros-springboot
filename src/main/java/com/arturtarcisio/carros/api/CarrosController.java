@@ -1,6 +1,7 @@
 package com.arturtarcisio.carros.api;
 
 import com.arturtarcisio.carros.domain.Carro;
+import com.arturtarcisio.carros.domain.dto.CarroDTO;
 import com.arturtarcisio.carros.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class CarrosController {
     private CarroService service;
 
     @GetMapping()
-    public ResponseEntity<Iterable<Carro>> get(){
+    public ResponseEntity<List<CarroDTO>> get(){
         return ResponseEntity.ok(service.getCarros());
     }
 
@@ -38,12 +39,12 @@ public class CarrosController {
     }
 
     @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<List<Carro>> getByTipo(@PathVariable("tipo") String tipo){
-        List<Carro> carros = service.getCarroByTipo(tipo);
+    public ResponseEntity getByTipo(@PathVariable("tipo") String tipo){
+        List<CarroDTO> carro = service.getCarroByTipo(tipo);
 
-        return carros.isEmpty() ?
+        return carro.isEmpty() ?
                 ResponseEntity.noContent().build() :
-                ResponseEntity.ok(carros);
+                ResponseEntity.ok(carro);
     }
 
     @PostMapping

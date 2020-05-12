@@ -1,12 +1,15 @@
 package com.arturtarcisio.carros.service;
 
 import com.arturtarcisio.carros.domain.Carro;
+import com.arturtarcisio.carros.domain.dto.CarroDTO;
 import com.arturtarcisio.carros.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarroService {
@@ -14,8 +17,18 @@ public class CarroService {
     @Autowired
     private CarroRepository repositorio;
 
-    public List<Carro> getCarros(){
-        return repositorio.findAll();
+    public List<CarroDTO> getCarros(){
+        //Percorre minha lista de Carro e inserindo no CarroDTO
+        return repositorio.findAll().stream().map(CarroDTO::new).collect(Collectors.toList());
+
+//        List<Carro> carro = repositorio.findAll();
+//        List<CarroDTO> list = new ArrayList<>();
+//
+//        for (Carro c : carro){
+//            list.add(new CarroDTO(c));
+//        }
+//        return list;
+
     }
 
 //    public List<Carro> getCarrosFake(){
@@ -30,8 +43,8 @@ public class CarroService {
         return repositorio.findById(id);
     }
 
-    public List<Carro> getCarroByTipo(String tipo){
-        return repositorio.findCarroByTipo(tipo);
+    public List<CarroDTO> getCarroByTipo(String tipo) {
+        return repositorio.findCarroByTipo(tipo).stream().map(CarroDTO::new).collect(Collectors.toList());
     }
 
     public Carro save(Carro carro){
