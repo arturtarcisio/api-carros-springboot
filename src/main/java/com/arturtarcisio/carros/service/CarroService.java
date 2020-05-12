@@ -55,10 +55,12 @@ public class CarroService {
 
     }
 
-    public void delete(Long id){
+    public boolean delete(Long id){
         if(getCarroById(id).isPresent()){
             repositorio.deleteById(id);
+            return true;
         }
+        return false;
     }
 
 }
