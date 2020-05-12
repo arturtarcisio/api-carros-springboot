@@ -6,7 +6,9 @@ import com.arturtarcisio.carros.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +45,19 @@ public class CarrosController {
     }
 
     @PostMapping
-    public String salvarCarro(@RequestBody Carro carro){
-        service.save(carro);
+    public ResponseEntity post(@RequestBody Carro carro){
+        try{
+            CarroDTO carroDTO = service.insert(carro);
+            URI location = getUri(carroDTO.getId());
+            return ResponseEntity.created(location).build();
+        } catch (Exception ex){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
-        return "Carro salvo com sucesso: " + carro.getId();
+    private URI getUri(Long id){
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(id).toUri();
     }
 
 //    @PutMapping("/{id}")

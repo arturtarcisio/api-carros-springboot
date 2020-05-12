@@ -3,6 +3,7 @@ package com.arturtarcisio.carros.service;
 import com.arturtarcisio.carros.domain.Carro;
 import com.arturtarcisio.carros.domain.dto.CarroDTO;
 import com.arturtarcisio.carros.repository.CarroRepository;
+import org.modelmapper.internal.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,9 @@ public class CarroService {
         return repositorio.findCarroByTipo(tipo).stream().map(CarroDTO::create).collect(Collectors.toList());
     }
 
-    public Carro save(Carro carro){
-        return repositorio.save(carro);
+    public CarroDTO insert(Carro carro){
+        Assert.isNull(carro.getId(), "Não foi possível inserir o registro");
+        return CarroDTO.create(repositorio.save(carro));
     }
 
 //    public void update(Carro carro, Long id) {
