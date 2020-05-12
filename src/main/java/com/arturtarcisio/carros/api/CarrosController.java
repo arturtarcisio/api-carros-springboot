@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.ReportAsSingleViolation;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -60,12 +61,16 @@ public class CarrosController {
                 .buildAndExpand(id).toUri();
     }
 
-//    @PutMapping("/{id}")
-//    public String atualizarCarro(@PathVariable("id") Long id, @RequestBody Carro carro){
-//        service.update(carro, id);
-//
-//        return "Carro atualizado com sucesso: " + carro.getId();
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity put(@PathVariable("id") Long id, @RequestBody Carro carro){
+        carro.setId(id);
+
+        CarroDTO c = service.update(carro, id);
+
+        return c != null ?
+                ResponseEntity.ok(c) :
+                ResponseEntity.notFound().build();
+    }
 
     @DeleteMapping("/{id}")
     public String deletarCarro(@PathVariable("id") Long id){

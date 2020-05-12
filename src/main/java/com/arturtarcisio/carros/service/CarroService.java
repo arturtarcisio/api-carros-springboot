@@ -3,6 +3,7 @@ package com.arturtarcisio.carros.service;
 import com.arturtarcisio.carros.domain.Carro;
 import com.arturtarcisio.carros.domain.dto.CarroDTO;
 import com.arturtarcisio.carros.repository.CarroRepository;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.modelmapper.internal.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,15 +36,24 @@ public class CarroService {
         return CarroDTO.create(repositorio.save(carro));
     }
 
-//    public void update(Carro carro, Long id) {
-//        getCarroById(id).map(carroDb -> {
-//            carroDb.setNome(carro.getNome());
-//            carroDb.setTipo(carro.getTipo());
-//            System.out.println("Carro id: " + carroDb.getId());
-//            repositorio.save(carroDb);
-//            return carroDb;
-//        }).orElseThrow(() -> new RuntimeException("Não foi possível atualizar o registro"));
-//    }
+    public CarroDTO update(Carro carro, Long id) {
+        Assert.notNull(id, "Não foi possível atualizar o registro");
+
+        Optional<Carro> optional = repositorio.findById(id);
+        if(optional.isPresent()){
+            Carro db = optional.get();
+            db.setNome(carro.getNome());
+            db.setTipo(carro.getTipo());
+            System.out.println("Carro id " + db.getId());
+
+            repositorio.save(db);
+
+            return CarroDTO.create(db);
+        } else {
+            return null;
+        }
+
+    }
 
     public void delete(Long id){
         if(getCarroById(id).isPresent()){
