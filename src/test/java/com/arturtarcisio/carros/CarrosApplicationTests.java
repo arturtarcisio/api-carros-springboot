@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +36,6 @@ class CarrosApplicationTests {
         //Buscar o objeto
         Optional<CarroDTO> op = service.getCarroById(id);
         assertTrue(op.isPresent());
-
         c = op.get();
         assertEquals("Ferrari", c.getNome());
         assertEquals("Luxo", c.getTipo());
@@ -48,7 +48,9 @@ class CarrosApplicationTests {
      }
 
      @Test
-     public void test2(){
+     public void testeLista(){
+
+        List<CarroDTO> carros = service.getCarros();
 
      }
 
