@@ -2,6 +2,7 @@ package com.arturtarcisio.carros.service;
 
 import com.arturtarcisio.carros.domain.Carro;
 import com.arturtarcisio.carros.domain.dto.CarroDTO;
+import com.arturtarcisio.carros.exception.ObjectNotFoundException;
 import com.arturtarcisio.carros.repository.CarroRepository;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.modelmapper.internal.util.Assert;
@@ -23,8 +24,9 @@ public class CarroService {
         return repositorio.findAll().stream().map(CarroDTO::create).collect(Collectors.toList());
     }
 
-    public Optional<CarroDTO> getCarroById(Long id){
-        return repositorio.findById(id).map(CarroDTO::create);
+    public CarroDTO getCarroById(Long id){
+        return repositorio.findById(id).map(CarroDTO::create).orElseThrow(
+                () -> new ObjectNotFoundException("Carro não encontrado!"));
     }
 
     public List<CarroDTO> getCarroByTipo(String tipo) {

@@ -27,13 +27,8 @@ public class CarrosController {
 
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable("id") Long id){
-        Optional<CarroDTO> carro = service.getCarroById(id);
-        return carro.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-
-//        return carro.isPresent() ?
-//                ResponseEntity.ok(carro.get()) :
-//                ResponseEntity.notFound().build();
+        CarroDTO carro = service.getCarroById(id);
+        return ResponseEntity.ok(carro);
     }
 
     @GetMapping("/tipo/{tipo}")

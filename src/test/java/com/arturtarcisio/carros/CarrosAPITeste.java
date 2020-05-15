@@ -81,12 +81,4 @@ public class CarrosAPITeste {
         assertEquals("Ferrari FF", c.getNome());
     }
 
-//    @Test
-//    public void testListaPorTipo(){
-//        assertEquals(10, getCarros("/api/v1/carros/classicos").getBody().size());
-//        assertEquals(10, getCarros("/api/v1/carros/esportivos").getBody().size());
-//        assertEquals(10, getCarros("/api/v1/carros/luxo").getBody().size());
-//
-//        assertEquals(HttpStatus.NO_CONTENT, getCarros("/api/v1/carros/popular").getStatusCode());
-//    }
 }
