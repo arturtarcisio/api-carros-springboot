@@ -47,13 +47,9 @@ public class CarrosController {
 
     @PostMapping
     public ResponseEntity post(@RequestBody Carro carro){
-        try{
             CarroDTO carroDTO = service.insert(carro);
             URI location = getUri(carroDTO.getId());
             return ResponseEntity.created(location).build();
-        } catch (Exception ex){
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     private URI getUri(Long id){
