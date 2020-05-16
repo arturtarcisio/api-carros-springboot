@@ -4,12 +4,10 @@ import com.arturtarcisio.carros.domain.Carro;
 import com.arturtarcisio.carros.domain.dto.CarroDTO;
 import com.arturtarcisio.carros.exception.ObjectNotFoundException;
 import com.arturtarcisio.carros.repository.CarroRepository;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.modelmapper.internal.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
